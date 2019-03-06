@@ -4,6 +4,7 @@
 import {
 	activatePlugin,
 	clickBlockAppender,
+	clickBlockToolbarButton,
 	createNewPost,
 	deactivatePlugin,
 	getEditedPostContent,
@@ -26,8 +27,7 @@ describe( 'Using Format API', () => {
 	it( 'Format toolbar is present in a paragraph block', async () => {
 		await clickBlockAppender();
 		await page.keyboard.type( 'First paragraph' );
-		await page.mouse.move( 200, 300, { steps: 10 } );
-		expect( await page.$( '[aria-label="Custom Link"]' ) ).not.toBeNull();
+		await clickBlockToolbarButton( 'Custom Link' );
 	} );
 
 	it( 'Clicking the control wraps the selected text properly with HTML code', async () => {
@@ -35,8 +35,7 @@ describe( 'Using Format API', () => {
 		await page.keyboard.type( 'First paragraph' );
 		await pressKeyWithModifier( 'shiftAlt', 'ArrowLeft' );
 		await pressKeyWithModifier( 'primary', 'A' );
-		await page.mouse.move( 200, 300, { steps: 10 } );
-		await page.click( '[aria-label="Custom Link"]' );
+		await clickBlockToolbarButton( 'Custom Link' );
 		expect( await getEditedPostContent() ).toMatchSnapshot();
 	} );
 } );
